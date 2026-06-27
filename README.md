@@ -41,6 +41,143 @@ Every operation is stateless and pure: given the same input and options, you alw
 
 ---
 
+## Usage
+
+### Step 1 — Add the node
+
+In your n8n workflow canvas, click **+**, search for **"Bangla"**, and drag it in. Connect it to any upstream node (HTTP Request, Webhook, Set, etc.).
+
+### Step 2 — Pick an operation
+
+Open the node. The first field is **Operation** — a dropdown with five choices. Select one and the relevant input fields appear automatically below it.
+
+### Step 3 — Fill in the fields and execute
+
+Each operation has its own fields:
+
+---
+
+#### Digit Convert
+
+| Field | Value |
+|-------|-------|
+| **Operation** | Digit Convert |
+| **Text** | The string containing digits to convert |
+| **Direction** | `Bengali → Latin` or `Latin → Bengali` |
+
+**Output JSON:**
+```json
+{
+  "result": "আমার নম্বর 0123",
+  "input":  "আমার নম্বর ০১২৩",
+  "operation": "digitConvert",
+  "direction": "bangla-to-latin"
+}
+```
+
+---
+
+#### Number to Bangla Words
+
+| Field | Value |
+|-------|-------|
+| **Operation** | Number to Bangla Words |
+| **Number** | Any non-negative integer, e.g. `1500` |
+
+**Output JSON:**
+```json
+{
+  "result": "এক হাজার পাঁচশো",
+  "input":  1500,
+  "operation": "numberToWords"
+}
+```
+
+---
+
+#### Normalize & Clean
+
+| Field | Value |
+|-------|-------|
+| **Operation** | Normalize & Clean |
+| **Text** | Raw Bangla text (from web scrape, user form, etc.) |
+| **Keep Joiners (ZWJ / ZWNJ)** | `true` (default) — keeps characters required for Bangla conjuncts |
+
+**Output JSON:**
+```json
+{
+  "result": "বাংলা টেক্সট",
+  "input":  "বাং​লা  টেক্সট  ",
+  "operation": "normalize",
+  "keepJoiners": true
+}
+```
+
+---
+
+#### Date Format
+
+| Field | Value |
+|-------|-------|
+| **Operation** | Date Format |
+| **Date** | ISO string or any JS-parseable date, e.g. `2024-03-26` |
+| **Format** | Default `D MMMM YYYY` — `D`=day, `MMMM`=Bangla month, `YYYY`=year |
+| **Bangla Digits** | `false` (default) — set `true` for ০–৯ numerals |
+
+**Output JSON (banglaDigits = true):**
+```json
+{
+  "result": "২৬ মার্চ ২০২৪",
+  "input":  "2024-03-26",
+  "operation": "dateFormat"
+}
+```
+
+---
+
+#### Transliterate _(BETA)_
+
+| Field | Value |
+|-------|-------|
+| **Operation** | Transliterate (BETA) |
+| **Text** | Banglish input, e.g. `ami valo achi` |
+| **Engine** | `rule-based` (default, offline) or `ollama` (local LLM) |
+| **Ollama Host** | _(ollama only)_ default `http://localhost:11434` |
+| **Ollama Model** | _(ollama only)_ default `llama3.1` |
+
+**Output JSON (rule-based):**
+```json
+{
+  "result": "আমি ভালো আছি",
+  "engine": "rule-based",
+  "input":  "ami valo achi",
+  "operation": "transliterate"
+}
+```
+
+**Output JSON when Ollama falls back to rule-based:**
+```json
+{
+  "result": "আমি ভালো আছি",
+  "engine": "rule-based",
+  "note":   "Ollama unreachable or failed (...); fell back to rule-based engine.",
+  "input":  "ami valo achi",
+  "operation": "transliterate"
+}
+```
+
+---
+
+### Step 4 — Use the result downstream
+
+The output item always has a `result` field. Reference it in the next node with:
+
+```
+{{ $json.result }}
+```
+
+---
+
 ## Operations
 
 | Operation | What it does | Example input → output |
