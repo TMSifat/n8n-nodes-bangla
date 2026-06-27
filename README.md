@@ -2,7 +2,7 @@
 
 **`n8n-nodes-bangla`** — The first Bangla text toolkit for n8n.
 
-[![npm version](https://img.shields.io/npm/v/n8n-nodes-bangla.svg)](https://www.npmjs.com/package/n8n-nodes-bangla)
+[![npm version](https://img.shields.io/badge/npm-v0.1.0-blue)](https://www.npmjs.com/package/n8n-nodes-bangla)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
