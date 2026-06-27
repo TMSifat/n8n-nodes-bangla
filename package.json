@@ -1,0 +1,55 @@
+{
+  "name": "n8n-nodes-bangla",
+  "version": "0.1.0",
+  "description": "Bangla text toolkit for n8n — digit convert, number-to-words, normalize, date format, and transliteration",
+  "license": "MIT",
+  "homepage": "https://github.com/TMSifat/n8n-nodes-bangla#readme",
+  "bugs": {
+    "url": "https://github.com/TMSifat/n8n-nodes-bangla/issues"
+  },
+  "keywords": [
+    "n8n-community-node-package",
+    "bangla",
+    "bengali",
+    "n8n",
+    "automation",
+    "text",
+    "nlp"
+  ],
+  "author": {
+    "name": "Tanvir Mustabi Sifat",
+    "email": "tanvirsifat51@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TMSifat/n8n-nodes-bangla.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json && node -e \"require('fs').cpSync('nodes/Bangla/bangla.svg','dist/nodes/Bangla/bangla.svg')\"",
+    "build:watch": "tsc --project tsconfig.json --watch",
+    "lint": "eslint nodes/**/*.ts",
+    "lint:fix": "eslint nodes/**/*.ts --fix",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "nodes": [
+      "dist/nodes/Bangla/Bangla.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.0",
+    "eslint": "^9.0.0",
+    "n8n-workflow": "^2.16.0",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.9"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "name": "Bangla Node — All Operations Demo",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start-node",
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "operation": "digitConvert",
+        "text": "আমার নম্বর ০১৭১২৩৪৫৬৭৮",
+        "direction": "bangla-to-latin"
+      },
+      "id": "digit-convert-node",
+      "name": "Digit Convert (Bengali→Latin)",
+      "type": "n8n-nodes-bangla.bangla",
+      "typeVersion": 1,
+      "position": [460, 160]
+    },
+    {
+      "parameters": {
+        "operation": "numberToWords",
+        "number": 125
+      },
+      "id": "number-to-words-node",
+      "name": "Number to Bangla Words",
+      "type": "n8n-nodes-bangla.bangla",
+      "typeVersion": 1,
+      "position": [460, 280]
+    },
+    {
+      "parameters": {
+        "operation": "normalize",
+        "text": "বাং​লা  টেক্সট  ",
+        "keepJoiners": true
+      },
+      "id": "normalize-node",
+      "name": "Normalize & Clean",
+      "type": "n8n-nodes-bangla.bangla",
+      "typeVersion": 1,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "operation": "dateFormat",
+        "date": "2024-03-26",
+        "dateFormatStr": "D MMMM YYYY",
+        "banglaDigits": true
+      },
+      "id": "date-format-node",
+      "name": "Date Format (Bangla digits)",
+      "type": "n8n-nodes-bangla.bangla",
+      "typeVersion": 1,
+      "position": [460, 520]
+    },
+    {
+      "parameters": {
+        "operation": "transliterate",
+        "text": "ami valo achi",
+        "engine": "rule-based"
+      },
+      "id": "transliterate-node",
+      "name": "Transliterate (BETA)",
+      "type": "n8n-nodes-bangla.bangla",
+      "typeVersion": 1,
+      "position": [460, 640]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          { "node": "Digit Convert (Bengali→Latin)", "type": "main", "index": 0 },
+          { "node": "Number to Bangla Words",        "type": "main", "index": 0 },
+          { "node": "Normalize & Clean",             "type": "main", "index": 0 },
+          { "node": "Date Format (Bangla digits)",   "type": "main", "index": 0 },
+          { "node": "Transliterate (BETA)",          "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1",
+  "id": "bangla-demo-workflow",
+  "meta": {
+    "instanceId": "local-dev"
+  },
+  "tags": []
+}
